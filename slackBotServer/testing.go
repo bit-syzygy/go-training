@@ -1,17 +1,28 @@
 package slackBotServer
 
 import (
-	"fmt"
-
 	"github.com/nlopes/slack"
 )
 
 //TestAPI is a mocked slack api for testing
-type TestAPI struct{}
+type TestAPI struct {
+	PostChannel chan TestPost
+}
+
+//TestPost is contains the infomation in a slack post
+type TestPost struct {
+	ChannelID   string
+	MessageText string
+	Params      slack.PostMessageParameters
+}
 
 //PostMessage mocks the slack api post message
 func (t TestAPI) PostMessage(channelID string, messageText string, params slack.PostMessageParameters) (string, string, error) {
-	fmt.Printf("Sending Message: \"%s\" on channel %s with params %v \n", messageText, channelID, params)
+	t.PostChannel <- TestPost{
+		ChannelID:   channelID,
+		MessageText: messageText,
+		Params:      params,
+	}
 	return "", "", nil
 }
 

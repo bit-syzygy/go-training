@@ -10,7 +10,6 @@ type NewRTMer interface {
 }
 
 //Listen runs a slack bot listening for message events
-// token is the OAUTH token for the bot and messageChannel is the channel that messages are pushed to when received by the listner
 func Listen(api NewRTMer, messageChannel chan<- *slack.MessageEvent) {
 	rtm := api.NewRTM()
 	go rtm.ManageConnection()

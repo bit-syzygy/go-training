@@ -12,6 +12,6 @@ func TestListen(t *testing.T) {
 	c := make(chan *slack.MessageEvent)
 	go Listen(api, c)
 
-	<-time.After(time.Millisecond * 100)
+	time.Sleep(time.Millisecond * 100)
 	t.SkipNow()
 }

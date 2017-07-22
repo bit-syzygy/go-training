@@ -1,7 +1,6 @@
 package slackBotServer
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/nlopes/slack"
@@ -14,7 +13,10 @@ func TestHandleChannel(t *testing.T) {
 	go func() {
 		for {
 			reply := <-r
-			fmt.Println(reply)
+			text := TestHandle{}.Handle(nil)
+			if reply.ReplyTo != msg || reply.MessageText != text {
+				t.Error("TestHandleChannel: Unexpected Reply")
+			}
 		}
 	}()
 

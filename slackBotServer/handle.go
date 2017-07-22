@@ -16,7 +16,7 @@ type Matcher interface {
 
 //HandleChannel defines a chanel that messages can be fed into in order for replys to be generated
 func HandleChannel(matcher Matcher, handler Handler, reply chan<- Reply) chan<- *slack.MessageEvent {
-	c := make(chan *slack.MessageEvent)
+	c := make(chan *slack.MessageEvent, 10)
 
 	go func() {
 		for {

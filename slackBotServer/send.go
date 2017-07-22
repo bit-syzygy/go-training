@@ -20,7 +20,7 @@ type PostMessager interface {
 //ReplyChannel creates a reply chanel for a bot with the given oauth token
 //a Reply pushed to this channel will be sent
 func ReplyChannel(api PostMessager) chan<- Reply {
-	c := make(chan Reply)
+	c := make(chan Reply, 10)
 
 	go func() {
 		for {
